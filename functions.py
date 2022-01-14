@@ -1,5 +1,4 @@
 import json
-import pprint
 
 
 def get_data(file):
@@ -38,9 +37,6 @@ def get_posts_with_comments_count():
             posts[index]['ending'] = set_ending(0)
 
     return posts
-
-
-# def
 
 
 def get_post_by_pk(pk):
@@ -93,17 +89,6 @@ def get_posts_by_word(word):
     return posts_by_word
 
 
-# def get_posts_by_tag(tag):
-#     """
-#     Находит посты по вхождению тега.
-#     :param tag: тег для поиска.
-#     :return: список постов, содержащих тег.
-#     """
-#     posts = get_posts_with_hashtags()
-#     posts_by_tag = [post for post in posts if tag.lower() in post.get('content').lower()]
-#     return posts_by_tag
-
-
 def get_posts_by_tag(tag):
     """
     Формирует список постов по выбранному тегу.
@@ -139,23 +124,11 @@ def replace_hashtags_with_links(content):
     return " ".join(words_in_post)
 
 
-# def get_posts_with_hashtags():
-#     """
-#     Заменяет текст поста на текст со ссылками.
-#     :return: список постов с кликабельными хештегами.
-#     """
-#     posts = get_posts_with_comments_count()
-#     for post in posts:
-#         post['content'] = replace_hashtags_with_links(post.get('content'))
-#     return posts
-
-
 def add_bookmark(pk):
     """
     Добавляет пост в закладки.
     :param pk: id добавляемого поста.
     """
-
     bookmarks = get_data('data/bookmarks.json')
 
     posts = get_posts_with_comments_count()
@@ -166,14 +139,6 @@ def add_bookmark(pk):
 
     with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
         json.dump(bookmarks, f, ensure_ascii=False, indent=4)
-
-    # return bookmarks
-
-    # is_post_in_bookmarks = False
-    #
-    # for post in bookmarks:
-    #     if pk == post.get('pk'):
-    #         is_post_in_bookmarks = True
 
 
 def remove_bookmark(pk):
@@ -191,9 +156,6 @@ def remove_bookmark(pk):
     with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
         json.dump(bookmarks, f, ensure_ascii=False, indent=4)
 
-    # json.dump(bookmarks, fp, ensure_ascii=False, indent=4)
-    # fp.close()
-
 
 def is_post_in_list_check(id_, list_):
     """
@@ -209,6 +171,12 @@ def is_post_in_list_check(id_, list_):
 
 
 def add_new_comment(name, text, id_):
+    """
+    Добавляет новый комментарий к списку комментариев.
+    :param name: имя пользователя, добавившего комментарий.
+    :param text: текст нового комментария.
+    :param id_: id поста, к которому добавлен комментарий.
+    """
     comments = get_data('data/comments.json')
     new_comment = {'post_id': id_,
                    'commenter_name': name,
@@ -219,6 +187,3 @@ def add_new_comment(name, text, id_):
 
     with open('data/comments.json', 'w', encoding='UTF-8') as f:
         json.dump(comments, f, ensure_ascii=False, indent=4)
-
-
-pprint.pprint(add_bookmark(1))

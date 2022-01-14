@@ -27,7 +27,6 @@ def page_post(pk):
     return redirect("/", code=302)
 
 
-
 @app.route('/search/', methods=["GET", "POST"])
 def page_search():
     if request.method == "GET":
@@ -65,8 +64,6 @@ def page_bookmarks_add(postid):
 def page_bookmarks_remove(postid):
     remove_bookmark(postid)
     return redirect("/", code=302)
-    # posts = get_posts_with_hashtags()
-    # return render_template('index.html', posts=posts)
 
 
 @app.route('/bookmarks/')
@@ -76,15 +73,6 @@ def page_bookmarks():
     if posts:
         return render_template('bookmarks.html', posts=posts, count=count)
     return "В закладках пока нет ни одного поста"
-
-
-# @app.route("/tag")
-# def page_tag():
-#     tag = request.args.get('tag')
-#     if tag:
-#         posts = get_posts_by_tag(read_json(POST_PATH), tag)
-#         return render_template("post_by_tag.html", posts=posts, tag=tag)
-#     return abort(400, "Вы не выбрали ни одного тега :(")
 
 
 if __name__ == "__main__":
