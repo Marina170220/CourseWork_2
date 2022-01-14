@@ -169,7 +169,6 @@ def add_bookmark(pk):
 
     # return bookmarks
 
-
     # is_post_in_bookmarks = False
     #
     # for post in bookmarks:
@@ -192,7 +191,6 @@ def remove_bookmark(pk):
     with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
         json.dump(bookmarks, f, ensure_ascii=False, indent=4)
 
-
     # json.dump(bookmarks, fp, ensure_ascii=False, indent=4)
     # fp.close()
 
@@ -208,6 +206,19 @@ def is_post_in_list_check(id_, list_):
         if id_ == post.get('pk'):
             return True
     return False
+
+
+def add_new_comment(name, text, id_):
+    comments = get_data('data/comments.json')
+    new_comment = {'post_id': id_,
+                   'commenter_name': name,
+                   'comment': text,
+                   'pk': (len(comments) + 1),
+                   }
+    comments.append(new_comment)
+
+    with open('data/comments.json', 'w', encoding='UTF-8') as f:
+        json.dump(comments, f, ensure_ascii=False, indent=4)
 
 
 pprint.pprint(add_bookmark(1))

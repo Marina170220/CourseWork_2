@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, abort
 from functions import *
 app = Flask(__name__)
 
@@ -11,11 +11,21 @@ def page_index():
     return render_template('index.html', posts=posts, bookmarks_count=bookmarks_count)
 
 
-@app.route('/posts/<int:pk>',)
+@app.route('/posts/<int:pk>', methods=["GET", "POST"])
 def page_post(pk):
-    post = get_post_by_pk(pk)
-    comments = get_post_comments(pk)
-    return render_template('post.html', post=post, comments=comments)
+    if request.method == 'GET':
+        post = get_post_by_pk(pk)
+        comments = get_post_comments(pk)
+        return render_template('post.html', post=post, comments=comments)
+    new_comment = request.form.get('user_comment')
+    new_comment_author = request.form.get('user_name')
+
+    if not new_comment or not new_comment_author:
+        abort(400, "Ошибка загрузки")
+    add_new_comment(new_comment_author, new_comment, pk)
+
+    return redirect("/", code=302)
+
 
 
 @app.route('/search/', methods=["GET", "POST"])
