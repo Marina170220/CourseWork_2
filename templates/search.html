@@ -25,8 +25,8 @@
   </header>
   <main class="container">
     <div class="search">
-      <form action="/search?s={{ search }}" method="post" class="search__form">
-        <input type="search" class="search__input">
+      <form action="" class="search__form">
+        <input type="search" class="search__input" name="s">
       </form>
       <p class="search__results">Найдено постов: {{ count }}</p>
     </div>
@@ -44,19 +44,23 @@
         <a href="/posts/{{ post.pk }}" class="item__post-link">
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr"><a href="/templates/tag.htmls/tag.html" class="item__tag">#food</a>{{ post.content }}</p>
+        <p class="item__descr"><a href="/templates/tag.htmls/tag.html" class="item__tag">#food</a>{{ post.content[:50]|safe }}<a href="/posts/{{ post.pk }}" class="item__btn-more">...Еще</a></p>
         <div class="item__post-info">
           <p class="item__comments-counter">{{ post.comments_count }} комментари{{ post.ending }}</p>
           <div class="item__counter">
             <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">212</span>
+            <span class="item__counter-text">{{ post.views_count }}</span>
+            <img src="/static/img/heart.png" alt="" class="item__counter-icon">
+            <span class="item__counter-text">{{ post.likes_count }}</span>
           </div>
         </div>
         <div class="item__post-bottom">
           <a href="/posts/{{ post.pk }}" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
+          <a href="/bookmarks/add/{{ post.pk }}">
+            <button type="button" class="item__bookmark-btn">
+              <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+            </button>
+          </a>
         </div>
         {% endfor %}
       </div>

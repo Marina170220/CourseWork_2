@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SKYPROGRAM tag</title>
-  <link href="../static/css/styles.min.css" rel="stylesheet">
+  <link href="/static/css/styles.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -16,96 +16,46 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#back"></use>
         </svg>
       </a>
-      <a href="/#food" class="header__logo-link">
-        <svg class="header__logo" width="144" height="26">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tag"></use>
-        </svg>
+      <a href="/tag/{{ tagname }}" class="header__logo-link">
+       <h1>#{{ tagname }}</h1>
       </a>
     </div>
   </header>
   <main class="container">
     <section class="items">
+      {% for post in posts %}
       <div class="items__item item">
         <div class="item__top">
-          <a href="/templates/user-feed.html-feed.html" class="item__head">
+          <a href="/users/{{ post.poster_name }}" class="item__head">
             <div class="item__ava-wrap">
-              <img src="../static/img/ava1.png" alt="" class="item__ava" width="47">
+              <img src="{{ post.poster_avatar }}" alt="" class="item__ava" width="47">
             </div>
-            <span class="item__username">Username</span>
+            <span class="item__username">{{ post.poster_name }}</span>
           </a>
         </div>
-        <a href="/templates/post.html/post.html" class="item__post-link">
-          <img src="../static/img/post4.jpg" alt="" width="348" class="item__post-img">
+        <a href="/posts/{{ post.pk }}" class="item__post-link">
+          <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr"><a href="/templates/tag.html" class="item__tag">#food</a> Текст описания коротки...</p>
+        <p class="item__descr"><a href="/tag/{{ tagname }}" class="item__tag"></a>{{ post.content[:50]|safe }}<a href="/posts/{{ post.pk }}" class="item__btn-more">...Еще</a></p>
         <div class="item__post-info">
-          <p class="item__comments-counter">13 комментариев</p>
+          <p class="item__comments-counter">{{ post.comments_count }} комментари{{ post.ending }}</p>
           <div class="item__counter">
-            <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">212</span>
+            <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
+            <span class="item__counter-text">{{ post.views_count }}</span>
+            <img src="/static/img/heart.png" alt="" class="item__counter-icon">
+            <span class="item__counter-text">{{ post.likes_count }}</span>
           </div>
         </div>
         <div class="item__post-bottom">
-          <a href="/templates/post.html/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
-        </div>
-      </div>
-      <div class="items__item item">
-        <div class="item__top">
-          <a href="/templates/user-feed.html-feed.html" class="item__head">
-            <div class="item__ava-wrap">
-              <img src="../static/img/ava2.png" alt="" class="item__ava" width="47">
-            </div>
-            <span class="item__username">Username</span>
+          <a href="/posts/{{ post.pk }}" class="item__btn-more">Подробнее</a>
+          <a href="/bookmarks/add/{{ post.pk }}">
+            <button type="button" class="item__bookmark-btn">
+              <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+            </button>
           </a>
         </div>
-        <a href="/templates/post.html/post.html" class="item__post-link">
-          <img src="../static/img/post2.jpg" alt="" width="348" class="item__post-img">
-        </a>
-        <p class="item__descr"><a href="/templates/tag.html" class="item__tag">#food</a> Текст описания коротки...</p>
-        <div class="item__post-info">
-          <p class="item__comments-counter">Нет комментариев</p>
-          <div class="item__counter">
-            <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">1023</span>
-          </div>
-        </div>
-        <div class="item__post-bottom">
-          <a href="/templates/post.html/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn active">
-            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
-        </div>
       </div>
-      <div class="items__item item">
-        <div class="item__top">
-          <a href="/templates/user-feed.html-feed.html" class="item__head">
-            <div class="item__ava-wrap">
-              <img src="../static/img/ava2.png" alt="" class="item__ava" width="47">
-            </div>
-            <span class="item__username">Username</span>
-          </a>
-        </div>
-        <a href="/templates/post.html/post.html" class="item__post-link">
-          <img src="../static/img/post3.jpg" alt="" width="348" class="item__post-img">
-        </a>
-        <p class="item__descr"><a href="/templates/tag.html" class="item__tag">#food</a> Текст описания коротки...</p>
-        <div class="item__post-info">
-          <p class="item__comments-counter">5 комментариев</p>
-          <div class="item__counter">
-            <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">1023</span>
-          </div>
-        </div>
-        <div class="item__post-bottom">
-          <a href="/templates/post.html/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
-        </div>
-      </div>
+      {% endfor %}
     </section>
   </main>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
