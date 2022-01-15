@@ -13,7 +13,8 @@ def get_data(file):
 
 def get_posts_with_comments_count():
     """
-    На основе списков постов и комментариев добавляет количество комментариев для каждого поста.
+    На основе списков постов и комментариев, добавляет количество комментариев для каждого поста.
+    Используя функцию set_ending, добавляет окончания для корректного отображения количества комментариев.
     :return: список постов с числом комментариев.
     """
     posts = get_data('data/posts.json')
@@ -39,27 +40,28 @@ def get_posts_with_comments_count():
     return posts
 
 
-def get_post_by_pk(pk):
+def get_post_by_pk(id_):
     """
     Находит пост по его id.
-    :param pk: id поста.
-    :return: соответсвующий пост.
+    Используя функцию replace_hashtags_with_links, заменяет текст поста на текст с кликабельными хештегами.
+    :param id_: id поста.
+    :return: соответствующий пост.
     """
     posts = get_posts_with_comments_count()
     for post in posts:
-        if post.get('pk') == pk:
+        if post.get('pk') == id_:
             post['content'] = replace_hashtags_with_links(post['content'])
             return post
 
 
-def get_post_comments(pk):
+def get_post_comments(id_):
     """
     Формирует список комментариев к посту.
-    :param pk: id поста.
+    :param id_: id поста.
     :return: список комментариев к этому посту.
     """
     comments = get_data('data/comments.json')
-    post_comments = [comment for comment in comments if comment.get('post_id') == pk]
+    post_comments = [comment for comment in comments if comment.get('post_id') == id_]
     return post_comments
 
 
@@ -124,33 +126,33 @@ def replace_hashtags_with_links(content):
     return " ".join(words_in_post)
 
 
-def add_bookmark(pk):
+def add_bookmark(id_):
     """
     Добавляет пост в закладки.
-    :param pk: id добавляемого поста.
+    :param id_: id добавляемого поста.
     """
     bookmarks = get_data('data/bookmarks.json')
 
     posts = get_posts_with_comments_count()
     for post in posts:
-        if pk == post.get('pk'):
-            if not is_post_in_list_check(pk, bookmarks):
+        if id_ == post.get('pk'):
+            if not is_post_in_list_check(id_, bookmarks):
                 bookmarks.append(post)
 
     with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
         json.dump(bookmarks, f, ensure_ascii=False, indent=4)
 
 
-def remove_bookmark(pk):
+def remove_bookmark(id_):
     """
     Удаляет пост из закладок.
-    :param pk: id удаляемого поста.
+    :param id_: id удаляемого поста.
     """
     bookmarks = get_data('data/bookmarks.json')
 
     if bookmarks:
         for post in bookmarks:
-            if pk == post.get('pk'):
+            if id_ == post.get('pk'):
                 bookmarks.remove(post)
 
     with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
@@ -159,10 +161,10 @@ def remove_bookmark(pk):
 
 def is_post_in_list_check(id_, list_):
     """
-    Проверяет, находится ли пост в списке
-    :param id_: id поста
-    :param list_: список постов
-    :return: True, если искомый пост есть в списке, иначе False
+    Проверяет, находится ли пост в списке.
+    :param id_: id поста.
+    :param list_: список постов.
+    :return: True, если искомый пост есть в списке, иначе False.
     """
     for post in list_:
         if id_ == post.get('pk'):

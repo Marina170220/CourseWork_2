@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, abort
 from functions import *
+
 app = Flask(__name__)
 
 
@@ -17,6 +18,7 @@ def page_post(pk):
         post = get_post_by_pk(pk)
         comments = get_post_comments(pk)
         return render_template('post.html', post=post, comments=comments)
+
     new_comment = request.form.get('user_comment')
     new_comment_author = request.form.get('user_name')
 
@@ -69,9 +71,8 @@ def page_bookmarks_remove(postid):
 @app.route('/bookmarks/')
 def page_bookmarks():
     posts = get_data('data/bookmarks.json')
-    count = len(posts)
     if posts:
-        return render_template('bookmarks.html', posts=posts, count=count)
+        return render_template('bookmarks.html', posts=posts)
     return "В закладках пока нет ни одного поста"
 
 

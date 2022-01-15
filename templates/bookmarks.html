@@ -39,7 +39,7 @@
         <a href="/posts/{{ post.pk }}" class="item__post-link">
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr">{{ post.content[:50]|safe }}<a href="/posts/{{ post.pk }}" class="item__btn-more">...Еще</a></p>
+        <p class="item__descr">{{ post.content[:50] }}<a href="/posts/{{ post.pk }}" class="item__btn-more">...Еще</a></p>
         <div class="item__post-info">
           <a href="/posts/{{ post.pk }}" class="item__btn-more">Показать комментарии ({{ post.comments_count }})</a>
           <div class="item__counter">
