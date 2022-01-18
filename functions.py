@@ -180,12 +180,20 @@ def add_new_comment(name, text, id_):
     :param id_: id поста, к которому добавлен комментарий.
     """
     comments = get_data('data/comments.json')
+    bookmarks = get_data('data/bookmarks.json')
     new_comment = {'post_id': id_,
                    'commenter_name': name,
                    'comment': text,
                    'pk': (len(comments) + 1),
                    }
     comments.append(new_comment)
+    for bookmark in bookmarks:
+        if bookmark.get('pk') == id_:
+            bookmark['comments_count'] += 1
 
     with open('data/comments.json', 'w', encoding='UTF-8') as f:
         json.dump(comments, f, ensure_ascii=False, indent=4)
+
+    with open('data/bookmarks.json', 'w', encoding='UTF-8') as f:
+        json.dump(bookmarks, f, ensure_ascii=False, indent=4)
+

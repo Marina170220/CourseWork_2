@@ -29,17 +29,13 @@ def page_post(pk):
     return redirect("/", code=302)
 
 
-@app.route('/search/', methods=["GET", "POST"])
+@app.route('/search/', methods=["GET"])
 def page_search():
     if request.method == "GET":
         search = request.args.get('s')
     if search:
-        found_posts = get_posts_by_word(search)
-        if len(found_posts) <= 10:
-            count = len(found_posts)
-        else:
-            count = 10
-            found_posts = found_posts[:10]
+        found_posts = get_posts_by_word(search)[:10]
+        count = len(found_posts)
         return render_template('search.html', found_posts=found_posts, count=count, search=search)
     return 'Вы не ввели запрос'
 

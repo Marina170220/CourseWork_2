@@ -142,5 +142,35 @@
         "commenter_name": "mary",
         "comment": "Интересная мысль))",
         "pk": 24
+    },
+    {
+        "post_id": 7,
+        "commenter_name": "mary",
+        "comment": "красиво",
+        "pk": 25
+    },
+    {
+        "post_id": 1,
+        "commenter_name": "lary",
+        "comment": "Вкуснятина)",
+        "pk": 26
+    },
+    {
+        "post_id": 3,
+        "commenter_name": "lary",
+        "comment": "супер!",
+        "pk": 27
+    },
+    {
+        "post_id": 5,
+        "commenter_name": "lary",
+        "comment": "лимончик)",
+        "pk": 28
+    },
+    {
+        "post_id": 1,
+        "commenter_name": "oskar",
+        "comment": "lovely))",
+        "pk": 29
     }
 ]
